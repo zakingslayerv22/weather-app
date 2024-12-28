@@ -8,18 +8,29 @@ export class GetWeather {
     this.getWeatherByLocation();
   }
 
-  async getWeatherByLocation() {
+  prepareUrl() {
     const firstPartOfUrl =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
     const encodedSearchQuery = encodeURIComponent(this.location);
     const thirdPartOfUrl = "?key=U2DCSCQ88LJNVYZCB9SFZGTAV";
-    let fullUrl = `${firstPartOfUrl}${encodedSearchQuery}${thirdPartOfUrl}`;
+    const fullUrl = `${firstPartOfUrl}${encodedSearchQuery}${thirdPartOfUrl}`;
+    return fullUrl;
+  }
 
-    const response = await fetch(fullUrl, { mode: "cors" });
+  async getWeatherByLocation() {
+    try {
+      const fullSearchUrl = this.prepareUrl();
+      const response = await fetch(fullSearchUrl, { mode: "cors" });
+      const weatherData = await response.json();
 
-    const weatherData = await response.json();
-    console.log(weatherData);
+      console.log(weatherData);
 
-    return weatherData;
+      return weatherData;
+    } catch (error) {
+      console.log(
+        "Could not retrieve weather details for this location-",
+        error,
+      );
+    }
   }
 }
