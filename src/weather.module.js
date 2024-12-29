@@ -19,18 +19,24 @@ export class GetWeather {
 
   async getWeatherByLocation() {
     try {
-      const fullSearchUrl = this.prepareUrl();
-      const response = await fetch(fullSearchUrl, { mode: "cors" });
+      const fullUrl = this.prepareUrl();
+      const response = await fetch(fullUrl, { mode: "cors" });
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Resource not found");
+        } else if (response.status === 500) {
+          throw new Error("Internal server error");
+        } else {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      }
       const weatherData = await response.json();
 
       console.log(weatherData);
 
       return weatherData;
     } catch (error) {
-      console.log(
-        "Could not retrieve weather details for this location-",
-        error,
-      );
+      console.log("Could not fetch the weather information - ", error);
     }
   }
 }
