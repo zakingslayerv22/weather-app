@@ -182,5 +182,17 @@ export class GetWeather {
     );
 
     minAndMaxTemperatureContainer.append(minTemperatureDiv, maxTemperatureDiv);
+
+    return {
+      addressDiv,
+      timeDiv,
+      dateDiv,
+      weatherDescriptionDiv,
+      temperatureDiv,
+      iconContainer,
+      minTemperatureDiv,
+      maxTemperatureDiv,
+      conditionsDiv,
+    };
   }
 }
