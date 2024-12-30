@@ -6,6 +6,7 @@ export class GetWeather {
 
   initialize() {
     this.getWeatherByLocation();
+    this.handleWeatherData();
   }
 
   prepareUrl() {
@@ -37,6 +38,34 @@ export class GetWeather {
       return weatherData;
     } catch (error) {
       console.log("Could not fetch the weather information - ", error);
+    }
+  }
+
+  async handleWeatherData() {
+    try {
+      const weatherData = await this.getWeatherByLocation();
+      // console.log(weatherData);
+      if (!weatherData) {
+        throw new Error("Could not fetch weather data for this location");
+      }
+
+      return {
+        address: weatherData.resolvedAddress,
+        time: weatherData.currentConditions.datetime,
+        temperature: weatherData.currentConditions.temp,
+        minTemp: weatherData.days[0].tempmin,
+        maxTemp: weatherData.days[0].tempmax,
+        conditions: weatherData.days[0].conditions,
+        description: weatherData.days[0].description,
+        date: weatherData.days[0].datetime,
+        humidity: weatherData.currentConditions.humidity,
+        rainProbability: weatherData.days[0].precipprob,
+        icon: weatherData.currentConditions.icon,
+        windSpeed: weatherData.currentConditions.windspeed,
+        uvIndex: weatherData.currentConditions.uvindex,
+      };
+    } catch (error) {
+      console.log(error);
     }
   }
 }
