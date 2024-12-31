@@ -8,7 +8,7 @@ export class GetWeather {
   initialize() {
     this.getWeatherByLocation();
     this.handleWeatherData();
-    this.buildLeftSectionForSearchResults();
+    this.renderSearchResults();
   }
 
   prepareUrl() {
@@ -194,5 +194,26 @@ export class GetWeather {
       maxTemperatureDiv,
       conditionsDiv,
     };
+  }
+
+  async renderSearchResults() {
+    const leftSectionElements = this.buildLeftSectionForSearchResults();
+
+    try {
+      const weatherData = await this.handleWeatherData();
+      leftSectionElements.addressDiv.textContent = weatherData.address;
+      leftSectionElements.timeDiv.textContent = weatherData.time;
+      leftSectionElements.dateDiv.textContent = weatherData.date;
+      leftSectionElements.weatherDescriptionDiv.textContent =
+        weatherData.description;
+      leftSectionElements.temperatureDiv.textContent = weatherData.temperature;
+
+      leftSectionElements.iconContainer.textContent = "weather-icon";
+      leftSectionElements.minTemperatureDiv.textContent = weatherData.minTemp;
+      leftSectionElements.maxTemperatureDiv.textContent = weatherData.maxTemp;
+      leftSectionElements.conditionsDiv.textContent = weatherData.conditions;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
