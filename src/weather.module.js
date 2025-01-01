@@ -2,6 +2,10 @@ export class GetWeather {
   constructor(location) {
     this.location = location;
     this.mainContainer = document.querySelector(".main-container");
+
+    this.searchResultsContainer = document.createElement("div");
+    this.searchResultsContainer.classList.add("search-results-container");
+
     this.initialize();
   }
 
@@ -9,6 +13,7 @@ export class GetWeather {
     this.getWeatherByLocation();
     this.handleWeatherData();
     this.renderSearchResults();
+    this.buildRightSectionForSearchResults();
   }
 
   prepareUrl() {
@@ -73,9 +78,6 @@ export class GetWeather {
 
   buildLeftSectionForSearchResults() {
     this.mainContainer.textContent = "";
-
-    const searchResultsContainer = document.createElement("div");
-    searchResultsContainer.classList.add("search-results-container");
 
     const leftContainer = document.createElement("div");
     leftContainer.classList.add("left-container");
@@ -152,8 +154,8 @@ export class GetWeather {
 
     //append
 
-    this.mainContainer.append(searchResultsContainer);
-    searchResultsContainer.append(leftContainer);
+    this.mainContainer.append(this.searchResultsContainer);
+    this.searchResultsContainer.append(leftContainer);
     leftContainer.append(homeAndSearchContainer, infoContainerLeft);
 
     homeAndSearchContainer.append(homeButton, searchContainer);
@@ -193,6 +195,156 @@ export class GetWeather {
       minTemperatureDiv,
       maxTemperatureDiv,
       conditionsDiv,
+    };
+  }
+
+  buildRightSectionForSearchResults() {
+    const rightContainer = document.createElement("div");
+    rightContainer.classList.add("right-container");
+
+    const rightContainerTitle = document.createElement("div");
+    rightContainerTitle.classList.add("right-container-title");
+    rightContainerTitle.textContent = "Today's weather details";
+
+    //temperature
+    const temperatureContainer = document.createElement("div");
+    temperatureContainer.classList.add("temperature-container");
+
+    const tempAndIconContainer = document.createElement("div");
+    tempAndIconContainer.classList.add("temperature-and-icon-container");
+
+    const tempIcon = document.createElement("div");
+    tempIcon.classList.add("temperature-icon");
+
+    const temperatureTitle = document.createElement("div");
+    temperatureTitle.classList.add("temperature-title");
+    temperatureTitle.textContent = "Current temperature";
+
+    const temperatureValue = document.createElement("div");
+    temperatureValue.classList.add("temperature-value-container");
+
+    //rain probability
+    const rainProbabilityContainer = document.createElement("div");
+    rainProbabilityContainer.classList.add("rain-probability-container");
+
+    const rainAndIconContainer = document.createElement("div");
+    rainAndIconContainer.classList.add("rain-and-icon-container");
+
+    const rainIcon = document.createElement("div");
+    rainIcon.classList.add("rain-icon");
+
+    const rainTitle = document.createElement("div");
+    rainTitle.classList.add("temperature-title");
+    rainTitle.textContent = "Probability of rain";
+
+    const rainValue = document.createElement("div");
+    rainValue.classList.add("rain-value-container");
+
+    //dew point
+    const dewPointContainer = document.createElement("div");
+    dewPointContainer.classList.add("dew-point-container");
+
+    const dewAndIconContainer = document.createElement("div");
+    dewAndIconContainer.classList.add("dew-and-icon-container");
+
+    const dewIcon = document.createElement("div");
+    dewIcon.classList.add("dew-icon");
+
+    const dewTitle = document.createElement("div");
+    dewTitle.classList.add("dew-point-title");
+    dewTitle.textContent = "Dew point";
+
+    const dewValue = document.createElement("div");
+    dewValue.classList.add("dew-value-container");
+
+    //wind speed
+    const windSpeedContainer = document.createElement("div");
+    windSpeedContainer.classList.add("wind-speed-container");
+
+    const windAndIconContainer = document.createElement("div");
+    windAndIconContainer.classList.add("wind-and-icon-container");
+
+    const windIcon = document.createElement("div");
+    windIcon.classList.add("wind-icon");
+
+    const windTitle = document.createElement("div");
+    windTitle.classList.add("wind-point-title");
+    windTitle.textContent = "Wind speed";
+
+    const windValue = document.createElement("div");
+    windValue.classList.add("wind-value-container");
+
+    //air humidity
+    const airHumidityContainer = document.createElement("div");
+    airHumidityContainer.classList.add("air-humidity-container");
+
+    const airAndIconContainer = document.createElement("div");
+    airAndIconContainer.classList.add("air-and-icon-container");
+
+    const airIcon = document.createElement("div");
+    airIcon.classList.add("air-icon");
+
+    const airTitle = document.createElement("div");
+    airTitle.classList.add("air-humudity-title");
+    airTitle.textContent = "Air humidity";
+
+    const airValue = document.createElement("div");
+    airValue.classList.add("air-value-container");
+
+    //uv index
+    const uvIndexContainer = document.createElement("div");
+    uvIndexContainer.classList.add("uv-index-container");
+
+    const uvAndIconContainer = document.createElement("div");
+    uvAndIconContainer.classList.add("uv-and-icon-container");
+
+    const uvIcon = document.createElement("div");
+    uvIcon.classList.add("uv-icon");
+
+    const uvTitle = document.createElement("div");
+    uvTitle.classList.add("uv-index-title");
+    uvTitle.textContent = "UV Index";
+
+    const uvValue = document.createElement("div");
+    uvValue.classList.add("uv-value-container");
+
+    this.searchResultsContainer.append(rightContainer);
+
+    rightContainer.append(
+      rightContainerTitle,
+      temperatureContainer,
+      rainProbabilityContainer,
+      dewPointContainer,
+      windSpeedContainer,
+      airHumidityContainer,
+      uvIndexContainer,
+    );
+
+    temperatureContainer.append(tempAndIconContainer, temperatureValue);
+    tempAndIconContainer.append(tempIcon, temperatureTitle);
+
+    rainProbabilityContainer.append(rainAndIconContainer, rainValue);
+    rainAndIconContainer.append(rainIcon, rainTitle);
+
+    dewPointContainer.append(dewAndIconContainer, dewValue);
+    dewAndIconContainer.append(dewIcon, dewTitle);
+
+    windSpeedContainer.append(windAndIconContainer, windValue);
+    windAndIconContainer.append(windIcon, windTitle);
+
+    airHumidityContainer.append(airAndIconContainer, airValue);
+    airHumidityContainer.append(airIcon, airTitle);
+
+    uvIndexContainer.append(uvAndIconContainer, uvValue);
+    uvAndIconContainer.append(uvIcon, uvTitle);
+
+    return {
+      temperatureValue,
+      rainValue,
+      dewValue,
+      windValue,
+      airValue,
+      uvTitle,
     };
   }
 
