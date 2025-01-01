@@ -57,6 +57,8 @@ export class GetWeather {
         address: weatherData.resolvedAddress,
         time: weatherData.currentConditions.datetime,
         temperature: weatherData.currentConditions.temp,
+        dew: weatherData.currentConditions.dew,
+        relativeHumidity: weatherData.currentConditions.humidity,
         minTemp: weatherData.days[0].tempmin,
         maxTemp: weatherData.days[0].tempmax,
         conditions: weatherData.days[0].conditions,
@@ -76,9 +78,13 @@ export class GetWeather {
   async renderSearchResults() {
     const DOMElements = new BuildDOM();
     const leftSectionElements = DOMElements.buildLeftSectionForSearchResults();
+    const rightSectionElements =
+      DOMElements.buildRightSectionForSearchResults();
 
     try {
       const weatherData = await this.handleWeatherData();
+
+      //left section
       leftSectionElements.addressDiv.textContent = weatherData.address;
       leftSectionElements.timeDiv.textContent = weatherData.time;
       leftSectionElements.dateDiv.textContent = weatherData.date;
@@ -90,6 +96,22 @@ export class GetWeather {
       leftSectionElements.minTemperatureDiv.textContent = weatherData.minTemp;
       leftSectionElements.maxTemperatureDiv.textContent = weatherData.maxTemp;
       leftSectionElements.conditionsDiv.textContent = weatherData.conditions;
+
+      //right section
+
+      rightSectionElements.temperatureValue.textContent =
+        weatherData.temperature;
+
+      rightSectionElements.rainValue.textContent = weatherData.rainProbability;
+
+      rightSectionElements.dewValue.textContent = weatherData.dew;
+
+      rightSectionElements.windValue.textContent = weatherData.windSpeed;
+
+      rightSectionElements.humidityValue.textContent =
+        weatherData.relativeHumidity;
+
+      rightSectionElements.uvValue.textContent = weatherData.uvIndex;
     } catch (error) {
       console.log(error);
     }
