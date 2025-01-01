@@ -213,12 +213,12 @@ export class BuildDOM {
     const humidityIcon = document.createElement("div");
     humidityIcon.classList.add("humidity-icon");
 
-    const airTitle = document.createElement("div");
-    airTitle.classList.add("air-humudity-title");
-    airTitle.textContent = "Air humidity";
+    const humidityTitle = document.createElement("div");
+    humidityTitle.classList.add("relative-humudity-title");
+    humidityTitle.textContent = "Relative humidity";
 
-    const airValue = document.createElement("div");
-    airValue.classList.add("air-value-container");
+    const humidityValue = document.createElement("div");
+    humidityValue.classList.add("humidity-value-container");
 
     //uv index
     const uvIndexContainer = document.createElement("div");
@@ -245,7 +245,7 @@ export class BuildDOM {
       rainProbabilityContainer,
       dewPointContainer,
       windSpeedContainer,
-      airHumidityContainer,
+      relativeHumidityContainer,
       uvIndexContainer,
     );
 
@@ -261,8 +261,8 @@ export class BuildDOM {
     windSpeedContainer.append(windAndIconContainer, windValue);
     windAndIconContainer.append(windIcon, windTitle);
 
-    airHumidityContainer.append(airAndIconContainer, airValue);
-    airAndIconContainer.append(airIcon, airTitle);
+    relativeHumidityContainer.append(humidityAndIconContainer, humidityValue);
+    humidityAndIconContainer.append(humidityIcon, humidityTitle);
 
     uvIndexContainer.append(uvAndIconContainer, uvValue);
     uvAndIconContainer.append(uvIcon, uvTitle);
@@ -272,7 +272,7 @@ export class BuildDOM {
       rainValue,
       dewValue,
       windValue,
-      airValue,
+      humidityValue,
       uvValue,
     };
   }
