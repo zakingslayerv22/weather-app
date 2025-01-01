@@ -7,16 +7,7 @@ export class BuildDOM {
     this.searchResultsContainer.classList.add("search-results-container");
   }
 
-  buildLeftSectionForSearchResults() {
-    const leftContainer = document.createElement("div");
-    leftContainer.classList.add("left-container");
-
-    const homeAndSearchContainer = document.createElement("div");
-    homeAndSearchContainer.classList.add("home-and-search-container");
-
-    const homeButton = document.createElement("div");
-    homeButton.classList.add("home-button");
-
+  buildSearchContainer(parent) {
     const searchContainer = document.createElement("div");
     searchContainer.classList.add("search-container");
 
@@ -28,6 +19,25 @@ export class BuildDOM {
     const searchButton = document.createElement("button");
     searchButton.textContent = "Search";
     searchButton.classList.add("search-button");
+
+    parent.append(searchContainer);
+
+    searchContainer.append(searchField, searchButton);
+
+    return { searchContainer };
+  }
+
+  buildLeftSectionForSearchResults() {
+    const leftContainer = document.createElement("div");
+    leftContainer.classList.add("left-container");
+
+    const homeAndSearchContainer = document.createElement("div");
+    homeAndSearchContainer.classList.add("home-and-search-container");
+
+    const homeButton = document.createElement("div");
+    homeButton.classList.add("home-button");
+
+    const searchContainerElements = this.buildSearchContainer(leftContainer);
 
     const infoContainerLeft = document.createElement("div");
     infoContainerLeft.classList.add("info-container-left");
@@ -87,8 +97,14 @@ export class BuildDOM {
     this.searchResultsContainer.append(leftContainer);
     leftContainer.append(homeAndSearchContainer, infoContainerLeft);
 
-    homeAndSearchContainer.append(homeButton, searchContainer);
-    searchContainer.append(searchField, searchButton);
+    homeAndSearchContainer.append(
+      homeButton,
+      searchContainerElements.searchContainer,
+    );
+    // searchContainerElements.searchContainer.append(
+    //   searchContainerElements.searchField,
+    //   searchContainerElements.searchButton,
+    // );
 
     infoContainerLeft.append(topContainer, bottomContainer);
 
