@@ -4,12 +4,12 @@ export class GetWeather {
   constructor() {
     this.DOMElements = new BuildDOM();
     this.initialize();
+    this.mainContainer = document.querySelector(".main-container");
   }
 
   initialize() {
-    this.getWeatherByLocation();
-    this.handleWeatherData();
-    this.renderSearchResults();
+    this.DOMElements.buildHomepage();
+    this.handleSearchButtonClicks();
   }
 
   prepareUrl(searchLocation) {
@@ -114,5 +114,23 @@ export class GetWeather {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  fetchHandleAndRenderWeatherData(searchLocation) {
+    this.mainContainer.textContent = "";
+    this.getWeatherByLocation(searchLocation);
+    this.handleWeatherData(searchLocation);
+    this.renderSearchResults(searchLocation);
+  }
+
+  handleSearchButtonClicks() {
+    const searchField = document.querySelector("#search");
+    const searchButton = document.querySelector(".search-button");
+
+    searchButton.addEventListener("click", () => {
+      this.fetchHandleAndRenderWeatherData(searchField.value);
+    });
+
+    console.log(searchField);
   }
 }
