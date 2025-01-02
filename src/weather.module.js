@@ -1,9 +1,8 @@
 import { BuildDOM } from "./dom.module";
 
 export class GetWeather {
-  constructor(location) {
-    this.location = location;
-
+  constructor() {
+    this.DOMElements = new BuildDOM();
     this.initialize();
   }
 
@@ -13,18 +12,18 @@ export class GetWeather {
     this.renderSearchResults();
   }
 
-  prepareUrl() {
+  prepareUrl(searchLocation) {
     const firstPartOfUrl =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
-    const encodedSearchQuery = encodeURIComponent(this.location);
+    const encodedSearchQuery = encodeURIComponent(searchLocation);
     const thirdPartOfUrl = "?key=U2DCSCQ88LJNVYZCB9SFZGTAV";
     const fullUrl = `${firstPartOfUrl}${encodedSearchQuery}${thirdPartOfUrl}`;
     return fullUrl;
   }
 
-  async getWeatherByLocation() {
+  async getWeatherByLocation(searchLocation) {
     try {
-      const fullUrl = this.prepareUrl();
+      const fullUrl = this.prepareUrl(searchLocation);
       const response = await fetch(fullUrl, { mode: "cors" });
       if (!response.ok) {
         if (response.status === 404) {
@@ -45,9 +44,9 @@ export class GetWeather {
     }
   }
 
-  async handleWeatherData() {
+  async handleWeatherData(searchLocation) {
     try {
-      const weatherData = await this.getWeatherByLocation();
+      const weatherData = await this.getWeatherByLocation(searchLocation);
       // console.log(weatherData);
       if (!weatherData) {
         throw new Error("Could not fetch weather data for this location");
@@ -75,14 +74,14 @@ export class GetWeather {
     }
   }
 
-  async renderSearchResults() {
-    const DOMElements = new BuildDOM();
-    const leftSectionElements = DOMElements.buildLeftSectionForSearchResults();
+  async renderSearchResults(searchLocation) {
+    const leftSectionElements =
+      this.DOMElements.buildLeftSectionForSearchResults();
     const rightSectionElements =
-      DOMElements.buildRightSectionForSearchResults();
+      this.DOMElements.buildRightSectionForSearchResults();
 
     try {
-      const weatherData = await this.handleWeatherData();
+      const weatherData = await this.handleWeatherData(searchLocation);
 
       //left section
       leftSectionElements.addressDiv.textContent = weatherData.address;
