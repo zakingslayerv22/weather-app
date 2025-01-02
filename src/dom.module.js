@@ -24,7 +24,7 @@ export class BuildDOM {
 
     searchContainer.append(searchField, searchButton);
 
-    return { searchContainer };
+    return { searchContainer, searchField, searchButton };
   }
 
   buildLeftSectionForSearchResults() {
@@ -290,6 +290,17 @@ export class BuildDOM {
       windValue,
       humidityValue,
       uvValue,
+    };
+  }
+
+  buildHomepage() {
+    const searchContainerElements = this.buildSearchContainer(
+      this.mainContainer,
+    );
+
+    return {
+      searchField: searchContainerElements.searchField,
+      searchButton: searchContainerElements.searchButton,
     };
   }
 }
