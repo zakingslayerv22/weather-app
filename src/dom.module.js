@@ -5,12 +5,12 @@ export class BuildDOM {
 
     this.searchResultsContainer = document.createElement("div");
     this.searchResultsContainer.classList.add("search-results-container");
+
+    this.searchContainer = document.createElement("div");
+    this.searchContainer.classList.add("search-container");
   }
 
   buildSearchContainer(parent) {
-    const searchContainer = document.createElement("div");
-    searchContainer.classList.add("search-container");
-
     const searchField = document.createElement("input");
     searchField.setAttribute("type", "search");
     searchField.setAttribute("id", "search");
@@ -20,14 +20,16 @@ export class BuildDOM {
     searchButton.textContent = "Search";
     searchButton.classList.add("search-button");
 
-    parent.append(searchContainer);
+    parent.append(this.searchContainer);
 
-    searchContainer.append(searchField, searchButton);
+    this.searchContainer.append(searchField, searchButton);
 
-    return { searchContainer, searchField, searchButton };
+    return { searchContainer: this.searchContainer, searchField, searchButton };
   }
 
   buildLeftSectionForSearchResults() {
+    this.searchContainer.textContent = "";
+    this.searchResultsContainer.textContent = "";
     const leftContainer = document.createElement("div");
     leftContainer.classList.add("left-container");
 
