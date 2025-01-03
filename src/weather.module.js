@@ -111,13 +111,15 @@ export class GetWeather {
         weatherData.relativeHumidity;
 
       rightSectionElements.uvValue.textContent = weatherData.uvIndex;
+
+      this.handleSearchButtonClicks();
     } catch (error) {
       console.log(error);
+      this.handleSearchButtonClicks();
     }
   }
 
   fetchHandleAndRenderWeatherData(searchLocation) {
-    this.mainContainer.textContent = "";
     this.getWeatherByLocation(searchLocation);
     this.handleWeatherData(searchLocation);
     this.renderSearchResults(searchLocation);
@@ -125,7 +127,14 @@ export class GetWeather {
 
   handleSearchButtonClicks() {
     const searchField = document.querySelector("#search");
-    const searchButton = document.querySelector(".search-button");
+    let searchButton = document.querySelector(".search-button");
+
+    // Replace the button with its clone to remove existing event listeners
+    const clonedButton = searchButton.cloneNode(true);
+    searchButton.replaceWith(clonedButton);
+
+    // Update searchButton to refer to the new clone
+    searchButton = clonedButton;
 
     searchButton.addEventListener("click", () => {
       this.fetchHandleAndRenderWeatherData(searchField.value);
