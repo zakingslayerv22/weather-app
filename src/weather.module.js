@@ -5,6 +5,7 @@ export class GetWeather {
     this.DOMElements = new BuildDOM();
     this.initialize();
     this.mainContainer = document.querySelector(".main-container");
+    this.loadingDiv = document.querySelector("#loading-div");
   }
 
   initialize() {
@@ -22,6 +23,7 @@ export class GetWeather {
   }
 
   async getWeatherByLocation(searchLocation) {
+    this.loadingDiv.classList.add("show");
     try {
       const fullUrl = this.prepareUrl(searchLocation);
       const response = await fetch(fullUrl, { mode: "cors" });
@@ -41,6 +43,8 @@ export class GetWeather {
       return weatherData;
     } catch (error) {
       console.log("Could not fetch the weather information - ", error);
+    } finally {
+      this.loadingDiv.classList.remove("show");
     }
   }
 
