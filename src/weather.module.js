@@ -75,13 +75,17 @@ export class GetWeather {
   }
 
   async renderSearchResults(searchLocation) {
-    const leftSectionElements =
-      this.DOMElements.buildLeftSectionForSearchResults();
-    const rightSectionElements =
-      this.DOMElements.buildRightSectionForSearchResults();
-
     try {
       const weatherData = await this.handleWeatherData(searchLocation);
+
+      if (!weatherData) {
+        throw new Error("Could not fetch Data");
+      }
+
+      const leftSectionElements =
+        this.DOMElements.buildLeftSectionForSearchResults();
+      const rightSectionElements =
+        this.DOMElements.buildRightSectionForSearchResults();
 
       //left section
       leftSectionElements.addressDiv.textContent = weatherData.address;
@@ -137,6 +141,7 @@ export class GetWeather {
     searchButton = clonedButton;
 
     searchButton.addEventListener("click", () => {
+      // searchButton.textContent = "Searching";
       this.fetchHandleAndRenderWeatherData(searchField.value);
     });
 
