@@ -9,6 +9,7 @@ export class GetWeather {
     this.weatherUnitSelectField = document.querySelector("#temperature-unit");
     this.mainContainer = document.querySelector(".main-container");
     this.loadingDiv = document.querySelector("#loading-div");
+    this.searchFieldValueForWeatherUnitToggle = "";
     this.initialize();
   }
 
@@ -161,6 +162,7 @@ export class GetWeather {
     searchButton.addEventListener("click", () => {
       // searchButton.textContent = "Searching"
       if (searchField.value !== "") {
+        this.searchFieldValueForWeatherUnitToggle = searchField.value;
         this.fetchHandleAndRenderWeatherData(searchField.value);
       }
     });
@@ -172,6 +174,11 @@ export class GetWeather {
     this.weatherUnitSelectField.addEventListener("change", () => {
       this.weatherUnitGroup = this.weatherUnitGroup === "US" ? "UK" : "US";
       console.log(this.weatherUnitGroup);
+      if (this.searchFieldValueForWeatherUnitToggle !== "") {
+        this.fetchHandleAndRenderWeatherData(
+          this.searchFieldValueForWeatherUnitToggle,
+        );
+      }
     });
   }
 }
