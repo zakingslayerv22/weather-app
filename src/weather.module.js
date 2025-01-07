@@ -3,9 +3,13 @@ import { BuildDOM } from "./dom.module";
 export class GetWeather {
   constructor() {
     this.DOMElements = new BuildDOM();
-    this.initialize();
+    this.weatherUnitGroup = "US";
+    this.temperatureUnitSign = "°F";
+    this.windSpeedUnit = "mph";
+    this.weatherUnitSelect = document.querySelector("#temperature-unit");
     this.mainContainer = document.querySelector(".main-container");
     this.loadingDiv = document.querySelector("#loading-div");
+    this.initialize();
   }
 
   initialize() {
@@ -59,17 +63,17 @@ export class GetWeather {
       return {
         address: weatherData.resolvedAddress,
         time: weatherData.currentConditions.datetime,
-        temperature: `${weatherData.currentConditions.temp}°F`,
-        dew: `${weatherData.currentConditions.dew}°F`,
+        temperature: `${weatherData.currentConditions.temp}${this.temperatureUnitSign}`,
+        dew: `${weatherData.currentConditions.dew}${this.temperatureUnitSign}`,
         relativeHumidity: `${weatherData.currentConditions.humidity}%`,
-        minTemp: `${weatherData.days[0].tempmin}°F`,
-        maxTemp: `${weatherData.days[0].tempmax}°F`,
+        minTemp: `${weatherData.days[0].tempmin}${this.temperatureUnitSign}`,
+        maxTemp: `${weatherData.days[0].tempmax}${this.temperatureUnitSign}`,
         conditions: weatherData.days[0].conditions,
         description: weatherData.days[0].description,
         date: weatherData.days[0].datetime,
         rainProbability: `${weatherData.days[0].precipprob}%`,
         icon: weatherData.currentConditions.icon,
-        windSpeed: `${weatherData.currentConditions.windspeed} mph`,
+        windSpeed: `${weatherData.currentConditions.windspeed} ${this.windSpeedUnit}`,
         uvIndex: weatherData.currentConditions.uvindex,
       };
     } catch (error) {
