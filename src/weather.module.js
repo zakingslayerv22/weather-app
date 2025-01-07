@@ -17,19 +17,29 @@ export class GetWeather {
     this.handleSearchButtonClicks();
   }
 
-  prepareUrl(searchLocation) {
+  prepareUrl(searchLocation, weatherUnitGroup) {
     const firstPartOfUrl =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
     const encodedSearchQuery = encodeURIComponent(searchLocation);
-    const thirdPartOfUrl = "?key=U2DCSCQ88LJNVYZCB9SFZGTAV";
-    const fullUrl = `${firstPartOfUrl}${encodedSearchQuery}${thirdPartOfUrl}`;
+    const thirdPartOfUrl = "key=U2DCSCQ88LJNVYZCB9SFZGTAV";
+    const fullUrl = `${firstPartOfUrl}${encodedSearchQuery}${weatherUnitGroup}${thirdPartOfUrl}`;
     return fullUrl;
   }
 
   async getWeatherByLocation(searchLocation) {
     this.loadingDiv.classList.add("show");
     try {
-      const fullUrl = this.prepareUrl(searchLocation);
+      let fullUrl;
+      if (this.weatherUnitGroup == "US") {
+        fullUrl = this.prepareUrl(searchLocation, "?unitGroup=us&");
+        this.temperatureUnitSign = "°F";
+        this.windSpeedUnit = "mph";
+      } else {
+        fullUrl = this.prepareUrl(searchLocation, "?unitGroup=uk&");
+        this.temperatureUnitSign = "°C";
+        this.windSpeedUnit = "km/h";
+      }
+
       const response = await fetch(fullUrl, { mode: "cors" });
       if (!response.ok) {
         if (response.status === 404) {
