@@ -6,7 +6,7 @@ export class GetWeather {
     this.weatherUnitGroup = "US";
     this.temperatureUnitSign = "°F";
     this.windSpeedUnit = "mph";
-    this.weatherUnitSelect = document.querySelector("#temperature-unit");
+    this.weatherUnitSelectField = document.querySelector("#temperature-unit");
     this.mainContainer = document.querySelector(".main-container");
     this.loadingDiv = document.querySelector("#loading-div");
     this.initialize();
@@ -15,6 +15,7 @@ export class GetWeather {
   initialize() {
     this.DOMElements.buildHomepage();
     this.handleSearchButtonClicks();
+    this.toggleWeatherUnit();
   }
 
   prepareUrl(searchLocation, weatherUnitGroup) {
@@ -158,10 +159,19 @@ export class GetWeather {
     searchButton = clonedButton;
 
     searchButton.addEventListener("click", () => {
-      // searchButton.textContent = "Searching";
-      this.fetchHandleAndRenderWeatherData(searchField.value);
+      // searchButton.textContent = "Searching"
+      if (searchField.value !== "") {
+        this.fetchHandleAndRenderWeatherData(searchField.value);
+      }
     });
 
     console.log(searchField);
+  }
+
+  toggleWeatherUnit() {
+    this.weatherUnitSelectField.addEventListener("change", () => {
+      this.weatherUnitGroup = this.weatherUnitGroup === "US" ? "UK" : "US";
+      console.log(this.weatherUnitGroup);
+    });
   }
 }
