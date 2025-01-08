@@ -1,3 +1,9 @@
+import HomeIcon from "./images/home.svg";
+import CloudyIcon from "./images/cloudy.svg";
+import SunnyIcon from "./images/sunny.svg";
+import RainyIcon from "./images/rainy.svg";
+import SnowingIcon from "./images/snowing.svg";
+
 export class BuildDOM {
   constructor() {
     this.mainContainer = document.querySelector(".main-container");
@@ -8,6 +14,31 @@ export class BuildDOM {
 
     this.searchContainer = document.createElement("div");
     this.searchContainer.classList.add("search-container");
+  }
+
+  buildIconPack() {
+    const homeIcon = new Image();
+    homeIcon.src = HomeIcon;
+
+    const cloudyIcon = new Image();
+    cloudyIcon.src = CloudyIcon;
+
+    const sunnyIcon = new Image();
+    sunnyIcon.src = SunnyIcon;
+
+    const rainyIcon = new Image();
+    rainyIcon.src = RainyIcon;
+
+    const snowingIcon = new Image();
+    snowingIcon.src = SnowingIcon;
+
+    return {
+      homeIcon,
+      cloudyIcon,
+      sunnyIcon,
+      rainyIcon,
+      snowingIcon,
+    };
   }
 
   buildSearchContainer(parent) {
