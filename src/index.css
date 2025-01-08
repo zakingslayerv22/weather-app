@@ -62,12 +62,22 @@ button {
 .dew-and-icon-container,
 .wind-and-icon-container,
 .humidity-and-icon-container,
-.uv-and-icon-container .search-container {
+.uv-and-icon-container,
+.search-container {
   display: flex;
 }
 
+.home-and-search-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-container {
+  flex: 1;
+}
+
 .info-container-left div {
-  padding: 0.5rem;
+  padding: 0.39rem;
 }
 
 .right-container div {
@@ -77,10 +87,6 @@ button {
 #search {
   flex: 1;
 }
-
-/* .temperature-and-icon-container {
-  padding-top: 3rem;
-} */
 
 .temperature {
   font-size: 3.2rem;
@@ -95,6 +101,7 @@ button {
 .uv-value-container,
 .icon-container {
   margin-left: auto;
+  align-self: center;
 }
 
 .temperature-container,

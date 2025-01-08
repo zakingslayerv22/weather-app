@@ -164,6 +164,7 @@ export class BuildDOM {
     minAndMaxTemperatureContainer.append(minTemperatureDiv, maxTemperatureDiv);
 
     return {
+      homeButton,
       addressDiv,
       timeDiv,
       dateDiv,

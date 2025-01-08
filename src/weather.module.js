@@ -109,6 +109,8 @@ export class GetWeather {
         this.DOMElements.buildRightSectionForSearchResults();
 
       //left section
+
+      leftSectionElements.homeButton.textContent = "Home_Icon";
       leftSectionElements.addressDiv.textContent = weatherData.address;
       leftSectionElements.timeDiv.textContent = weatherData.time;
       leftSectionElements.dateDiv.textContent = weatherData.date;
