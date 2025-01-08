@@ -1,1 +1,1 @@
-The Odin Project's weather API's assignment.
+The Odin Project's weather API assignment.
