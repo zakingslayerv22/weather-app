@@ -5,6 +5,21 @@
   border: 1px solid salmon;
 }
 
+html,
+body {
+  min-height: 100%;
+  font-size: 1.2rem;
+}
+
+body {
+  padding: 0.9rem;
+}
+
+input,
+button {
+  font-size: 1.1rem;
+}
+
 #loading-div {
   width: 3rem;
   height: 3rem;
@@ -27,4 +42,71 @@
 
 #loading-div.show {
   display: block;
+}
+
+.search-results-container {
+  display: grid;
+  gap: 3rem;
+  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-and-time-container,
+.temperature-and-icon-container,
+.rain-and-icon-container,
+.dew-and-icon-container,
+.wind-and-icon-container,
+.humidity-and-icon-container,
+.uv-and-icon-container .search-container {
+  display: flex;
+}
+
+.info-container-left div {
+  padding: 0.5rem;
+}
+
+.right-container div {
+  padding: 0.3rem;
+}
+
+#search {
+  flex: 1;
+}
+
+/* .temperature-and-icon-container {
+  padding-top: 3rem;
+} */
+
+.temperature {
+  font-size: 3.2rem;
+}
+
+.time-div,
+.temperature-value-container,
+.rain-value-container,
+.dew-value-container,
+.wind-value-container,
+.humidity-value-container,
+.uv-value-container,
+.icon-container {
+  margin-left: auto;
+}
+
+.temperature-container,
+.rain-probability-container,
+.dew-point-container,
+.wind-speed-container,
+.relative-humidity-container,
+.uv-index-container,
+.min-max-temperature-container {
+  display: flex;
+}
+
+.right-container > div {
+  display: flex;
 }
