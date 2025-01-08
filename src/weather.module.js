@@ -101,6 +101,8 @@ export class GetWeather {
         throw new Error("Could not fetch Data");
       }
 
+      const iconPack = this.DOMElements.buildIconPack();
+
       const leftSectionElements =
         this.DOMElements.buildLeftSectionForSearchResults();
       const rightSectionElements =
@@ -114,8 +116,17 @@ export class GetWeather {
         weatherData.description;
       leftSectionElements.temperatureDiv.textContent = weatherData.temperature;
 
-      leftSectionElements.iconContainer.textContent = "weather-icon";
-      leftSectionElements.minTemperatureDiv.textContent = weatherData.minTemp;
+      if (weatherData.icon.includes("cloud")) {
+        leftSectionElements.iconContainer.append(iconPack.cloudyIcon);
+      } else if (weatherData.icon.includes("rain")) {
+        leftSectionElements.iconContainer.append(iconPack.rainyIcon);
+      } else if (weatherData.icon.includes("snow")) {
+        leftSectionElements.iconContainer.append(iconPack.snowingIcon);
+      } else {
+        leftSectionElements.iconContainer.append(iconPack.sunnyIcon);
+      }
+      // leftSectionElements.iconContainer.append(iconPack.snowingIcon);
+      leftSectionElements.minTemperatureDiv.textContent = `${weatherData.minTemp}/`;
       leftSectionElements.maxTemperatureDiv.textContent = weatherData.maxTemp;
       leftSectionElements.conditionsDiv.textContent = weatherData.conditions;
 
